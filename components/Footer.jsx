@@ -12,7 +12,7 @@ const Footer = () => {
               href={"/"}
               className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900"
             >
-              <Image src="/logo2.jpg" width={200} height={20}/>
+              <Image src="/logo4.png" width={200} height={20}/>
             </Link>
             <p className="mt-2 px-4 text-sm text-gray-500">
               Air plant banjo lyft occupy retro adaptogen indego

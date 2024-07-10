@@ -1,7 +1,7 @@
-import React from "react";
-import Link from "next/link";
+import React from 'react'
+import Link from 'next/link'
 
-const Mugs = () => {
+const Stickers = () => {
   return (
     <div>
       <section className="text-gray-600 body-font">
@@ -171,7 +171,7 @@ const Mugs = () => {
         </div>
       </section>
     </div>
-  );
-};
+  )
+}
 
-export default Mugs;
+export default Stickers
