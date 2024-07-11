@@ -2,11 +2,26 @@ import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { IoIosCart } from "react-icons/io";
-
+import { IoMdCloseCircle } from "react-icons/io";
+import { FaCirclePlus } from "react-icons/fa6";
+import { FaCircleMinus } from "react-icons/fa6";
+import { IoBagHandle } from "react-icons/io5";
+import { MdDeleteSweep } from "react-icons/md";
+import { useRef } from "react";
 
 const navbar = () => {
+  const ref = useRef();
+  const toggleCart = () => {
+    if (ref.current.classList.contains("translate-x-full")) {
+      ref.current.classList.remove("translate-x-full");
+      ref.current.classList.add("translate-x-0");
+    } else if (!ref.current.classList.contains("translate-x-full")) {
+      ref.current.classList.remove("translate-x-0");
+      ref.current.classList.add("translate-x-full");
+    }
+  };
   return (
-    <div className="flex flex-col md:flex-row md:justify-start justify-between items-center py-1 shadow-xl">
+    <div className="flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-xl">
       <div className="logo mx-5">
         <Link
           href={"/"}
@@ -17,15 +32,94 @@ const navbar = () => {
       </div>
       <div className="nav">
         <ul className="flex items-center space-x-4 font-bold md:text-md">
-          <Link href={'/tshits'}><li>Tshirts</li></Link>
-          <Link href={'/hoodies'}><li>hoodies</li></Link>
-          <Link href={'/mugs'}><li>Mugs</li></Link>
-          <Link href={'/stickers'}><li>Stickers</li></Link>
+          <Link href={"/tshits"}>
+            <li>Tshirts</li>
+          </Link>
+          <Link href={"/hoodies"}>
+            <li>hoodies</li>
+          </Link>
+          <Link href={"/mugs"}>
+            <li>Mugs</li>
+          </Link>
+          <Link href={"/stickers"}>
+            <li>Stickers</li>
+          </Link>
         </ul>
       </div>
-      <div className="cart absolute right-0 top-4 mx-5">
-        
-      <IoIosCart className="text-xl md:text-2xl"/>
+      <div
+        onClick={toggleCart}
+        className="cursor-pointer cart absolute right-0 top-4 mx-5"
+      >
+        <IoIosCart className="text-xl md:text-2xl" />
+      </div>
+
+      <div
+        ref={ref}
+        className="w-72 h-full sideCart absolute top-0 right-0 bg-purple-300 px-8 py-10 transform z-10 transition-transform translate-x-full"
+      >
+        <h2 className="font-bold text-xl">shopping cart</h2>
+        <span
+          onClick={toggleCart}
+          className="absolute top-5 right-2 cursor-pointer text-purple-700 text-2xl"
+        >
+          <IoMdCloseCircle />
+        </span>
+        <ol className="list-decimal font-semibold">
+          <li>
+            <div className="item flex my-5">
+              <div className="w-2/3 font-semibold">wear the code</div>
+
+              <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
+                <FaCircleMinus className="cursor-pointer" color="874CCC" />
+                <span className="mx-2">1</span>
+                <FaCirclePlus className="cursor-pointer" color="874CCC" />
+              </div>
+            </div>
+          </li>
+          <li>
+            <div className="item flex my-5">
+              <div className="w-2/3 font-semibold">wear the code</div>
+
+              <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
+                <FaCircleMinus className="cursor-pointer" color="874CCC" />
+                <span className="mx-2">1</span>
+                <FaCirclePlus className="cursor-pointer" color="874CCC" />
+              </div>
+            </div>
+          </li>
+          <li>
+            <div className="item flex my-5">
+              <div className="w-2/3 font-semibold">wear the code</div>
+
+              <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
+                <FaCircleMinus className="cursor-pointer" color="874CCC" />
+                <span className="mx-2">1</span>
+                <FaCirclePlus className="cursor-pointer" color="874CCC" />
+              </div>
+            </div>
+          </li>
+          <li>
+            <div className="item flex my-5">
+              <div className="w-2/3 font-semibold">wear the code</div>
+
+              <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
+                <FaCircleMinus className="cursor-pointer" color="874CCC" />
+                <span className="mx-2">1</span>
+                <FaCirclePlus className="cursor-pointer" color="874CCC" />
+              </div>
+            </div>
+          </li>
+        </ol>
+        <div className="flex">
+          <button className="flex mx-2 text-white bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
+            <IoBagHandle className="m-1" />
+            Checkout
+          </button>
+          <button className="flex mx-2  text-white  bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
+            <MdDeleteSweep className="m-1" />
+            ClearCart
+          </button>
+        </div>
       </div>
     </div>
   );
