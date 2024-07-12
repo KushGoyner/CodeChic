@@ -9,7 +9,7 @@ import { IoBagHandle } from "react-icons/io5";
 import { MdDeleteSweep } from "react-icons/md";
 import { useRef } from "react";
 
-const navbar = () => {
+const Navbar = ({cart,addToCart,removeFromCart,clearCart,subTotal}) => {
   const ref = useRef();
   const toggleCart = () => {
     if (ref.current.classList.contains("translate-x-full")) {
@@ -27,7 +27,7 @@ const navbar = () => {
           href={"/"}
           className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900"
         >
-          <Image src="/logo4.png" width={200} height={20} />
+          <Image src="/logo4.png" alt="CodeChic" width={200} height={20} />
         </Link>
       </div>
       <div className="nav">
@@ -65,57 +65,27 @@ const navbar = () => {
           <IoMdCloseCircle />
         </span>
         <ol className="list-decimal font-semibold">
-          <li>
+          {Object.keys(cart).length==0&&
+          <div className="my-4 text-base font-semibold">Your cart is empty.</div>}
+          {Object.keys(cart).map((k)=>{
+            return <li key={k}>
             <div className="item flex my-5">
-              <div className="w-2/3 font-semibold">wear the code</div>
+              <div className="w-2/3 font-semibold">{cart[k].name}</div>
 
               <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
-                <FaCircleMinus className="cursor-pointer" color="874CCC" />
-                <span className="mx-2">1</span>
-                <FaCirclePlus className="cursor-pointer" color="874CCC" />
+                <FaCircleMinus onClick={()=>{removeFromCart(k,1, cart[k].price,cart[k].name,cart[k].size,cart[k].varient)}} className="cursor-pointer" color="874CCC" />
+                <span className="mx-2">{cart[k].qty}</span>
+                <FaCirclePlus onClick={()=>{addToCart(k,1, cart[k].price,cart[k].name,cart[k].size,cart[k].varient)}} className="cursor-pointer" color="874CCC" />
               </div>
             </div>
-          </li>
-          <li>
-            <div className="item flex my-5">
-              <div className="w-2/3 font-semibold">wear the code</div>
-
-              <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
-                <FaCircleMinus className="cursor-pointer" color="874CCC" />
-                <span className="mx-2">1</span>
-                <FaCirclePlus className="cursor-pointer" color="874CCC" />
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className="item flex my-5">
-              <div className="w-2/3 font-semibold">wear the code</div>
-
-              <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
-                <FaCircleMinus className="cursor-pointer" color="874CCC" />
-                <span className="mx-2">1</span>
-                <FaCirclePlus className="cursor-pointer" color="874CCC" />
-              </div>
-            </div>
-          </li>
-          <li>
-            <div className="item flex my-5">
-              <div className="w-2/3 font-semibold">wear the code</div>
-
-              <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
-                <FaCircleMinus className="cursor-pointer" color="874CCC" />
-                <span className="mx-2">1</span>
-                <FaCirclePlus className="cursor-pointer" color="874CCC" />
-              </div>
-            </div>
-          </li>
+          </li>})}
         </ol>
         <div className="flex">
           <button className="flex mx-2 text-white bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
             <IoBagHandle className="m-1" />
             Checkout
           </button>
-          <button className="flex mx-2  text-white  bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
+          <button onClick={clearCart} className="flex mx-2  text-white  bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
             <MdDeleteSweep className="m-1" />
             ClearCart
           </button>
@@ -125,4 +95,4 @@ const navbar = () => {
   );
 };
 
-export default navbar;
+export default Navbar;

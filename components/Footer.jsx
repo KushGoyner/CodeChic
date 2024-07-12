@@ -12,7 +12,7 @@ const Footer = () => {
               href={"/"}
               className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900"
             >
-              <Image src="/logo4.png" width={200} height={20}/>
+              <Image src="/logo4.png" alt="CodeChic" width={200} height={20}/>
             </Link>
             <p className="mt-2 px-4 text-sm text-gray-500">
               Air plant banjo lyft occupy retro adaptogen indego
@@ -146,9 +146,9 @@ const Footer = () => {
               <a className="text-gray-500">
                 <svg
                   fill="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-5 h-5"
                   viewBox="0 0 24 24"
                 >
@@ -158,9 +158,9 @@ const Footer = () => {
               <a className="ml-3 text-gray-500">
                 <svg
                   fill="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-5 h-5"
                   viewBox="0 0 24 24"
                 >
@@ -171,9 +171,9 @@ const Footer = () => {
                 <svg
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="w-5 h-5"
                   viewBox="0 0 24 24"
                 >
@@ -185,9 +185,9 @@ const Footer = () => {
                 <svg
                   fill="currentColor"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="0"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="0"
                   className="w-5 h-5"
                   viewBox="0 0 24 24"
                 >
