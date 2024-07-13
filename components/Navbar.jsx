@@ -21,7 +21,7 @@ const Navbar = ({cart,addToCart,removeFromCart,clearCart,subTotal}) => {
     }
   };
   return (
-    <div className="flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-xl">
+    <div className="flex flex-col md:flex-row md:justify-start justify-center items-center py-2 shadow-xl sticky top-0 bg-white bg-opacity-80 backdrop-blur-sm z-10">
       <div className="logo mx-5">
         <Link
           href={"/"}
@@ -55,9 +55,9 @@ const Navbar = ({cart,addToCart,removeFromCart,clearCart,subTotal}) => {
 
       <div
         ref={ref}
-        className="w-72 h-full sideCart absolute top-0 right-0 bg-purple-300 px-8 py-10 transform z-10 transition-transform translate-x-full"
+        className={`w-72 h-[100vh] sideCart absolute top-0 right-0 bg-purple-300 px-8 py-10 transform z-20 transition-transform ${Object.keys(cart).length!==0?"translate-x-0":'translate-x-full'}`}
       >
-        <h2 className="font-bold text-xl">shopping cart</h2>
+        <h2 className="font-bold text-xl text-center">shopping cart</h2>
         <span
           onClick={toggleCart}
           className="absolute top-5 right-2 cursor-pointer text-purple-700 text-2xl"
@@ -81,10 +81,12 @@ const Navbar = ({cart,addToCart,removeFromCart,clearCart,subTotal}) => {
           </li>})}
         </ol>
         <div className="flex">
+          <Link href={"/checkout"}>
           <button className="flex mx-2 text-white bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
             <IoBagHandle className="m-1" />
             Checkout
           </button>
+          </Link>
           <button onClick={clearCart} className="flex mx-2  text-white  bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
             <MdDeleteSweep className="m-1" />
             ClearCart

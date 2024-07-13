@@ -12,12 +12,12 @@ export default function App({ Component, pageProps }) {
     try {
       if(localStorage.getItem("cart")){
         setCart(JSON.parse(localStorage.getItem("cart")))
+        saveCart(JSON.parse(localStorage.getItem("cart")))
       }
     } catch (error) {
       console.error("Error");
       localStorage.clear();
     }
-    
 
   }, [])
   
@@ -63,7 +63,7 @@ export default function App({ Component, pageProps }) {
   }
   return (
     <>
-      <Navbar cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal}/>
+      <Navbar key={subTotal} cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal}/>
       <Component cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal } {...pageProps} />
       <Footer cart={cart} addToCart={addToCart} removeFromCart={removeFromCart} clearCart={clearCart} subTotal={subTotal} />
     </>
