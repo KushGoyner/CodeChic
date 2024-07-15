@@ -7,9 +7,10 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { FaCircleMinus } from "react-icons/fa6";
 import { IoBagHandle } from "react-icons/io5";
 import { MdDeleteSweep } from "react-icons/md";
+import { MdAccountCircle } from "react-icons/md";
 import { useRef } from "react";
 
-const Navbar = ({cart,addToCart,removeFromCart,clearCart,subTotal}) => {
+const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
   const ref = useRef();
   const toggleCart = () => {
     if (ref.current.classList.contains("translate-x-full")) {
@@ -46,16 +47,16 @@ const Navbar = ({cart,addToCart,removeFromCart,clearCart,subTotal}) => {
           </Link>
         </ul>
       </div>
-      <div
-        onClick={toggleCart}
-        className="cursor-pointer cart absolute right-0 top-4 mx-5"
-      >
-        <IoIosCart className="text-xl md:text-2xl" />
+      <div className="cursor-pointer cart absolute right-0 top-4 mx-5 flex ">
+        <Link href={'/login'}><MdAccountCircle className="text-xl md:text-2xl mx-2" /></Link>
+        <IoIosCart onClick={toggleCart} className="text-xl md:text-2xl" />
       </div>
 
       <div
         ref={ref}
-        className={`w-72 h-[100vh] sideCart absolute top-0 right-0 bg-purple-300 px-8 py-10 transform z-20 transition-transform ${Object.keys(cart).length!==0?"translate-x-0":'translate-x-full'}`}
+        className={`w-72 h-[100vh] sideCart absolute top-0 right-0 bg-purple-300 px-8 py-10 transform z-20 transition-transform ${
+          Object.keys(cart).length !== 0 ? "translate-x-0" : "translate-x-full"
+        }`}
       >
         <h2 className="font-bold text-xl text-center">shopping cart</h2>
         <span
@@ -65,29 +66,64 @@ const Navbar = ({cart,addToCart,removeFromCart,clearCart,subTotal}) => {
           <IoMdCloseCircle />
         </span>
         <ol className="list-decimal font-semibold">
-          {Object.keys(cart).length==0&&
-          <div className="my-4 text-base font-semibold">Your cart is empty.</div>}
-          {Object.keys(cart).map((k)=>{
-            return <li key={k}>
-            <div className="item flex my-5">
-              <div className="w-2/3 font-semibold">{cart[k].name}</div>
-
-              <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
-                <FaCircleMinus onClick={()=>{removeFromCart(k,1, cart[k].price,cart[k].name,cart[k].size,cart[k].varient)}} className="cursor-pointer" color="874CCC" />
-                <span className="mx-2">{cart[k].qty}</span>
-                <FaCirclePlus onClick={()=>{addToCart(k,1, cart[k].price,cart[k].name,cart[k].size,cart[k].varient)}} className="cursor-pointer" color="874CCC" />
-              </div>
+          {Object.keys(cart).length == 0 && (
+            <div className="my-4 text-base font-semibold">
+              Your cart is empty.
             </div>
-          </li>})}
+          )}
+          {Object.keys(cart).map((k) => {
+            return (
+              <li key={k}>
+                <div className="item flex my-5">
+                  <div className="w-2/3 font-semibold">{cart[k].name}</div>
+
+                  <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
+                    <FaCircleMinus
+                      onClick={() => {
+                        removeFromCart(
+                          k,
+                          1,
+                          cart[k].price,
+                          cart[k].name,
+                          cart[k].size,
+                          cart[k].varient
+                        );
+                      }}
+                      className="cursor-pointer"
+                      color="874CCC"
+                    />
+                    <span className="mx-2">{cart[k].qty}</span>
+                    <FaCirclePlus
+                      onClick={() => {
+                        addToCart(
+                          k,
+                          1,
+                          cart[k].price,
+                          cart[k].name,
+                          cart[k].size,
+                          cart[k].varient
+                        );
+                      }}
+                      className="cursor-pointer"
+                      color="874CCC"
+                    />
+                  </div>
+                </div>
+              </li>
+            );
+          })}
         </ol>
         <div className="flex">
           <Link href={"/checkout"}>
-          <button className="flex mx-2 text-white bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
-            <IoBagHandle className="m-1" />
-            Checkout
-          </button>
+            <button className="flex mx-2 text-white bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
+              <IoBagHandle className="m-1" />
+              Checkout
+            </button>
           </Link>
-          <button onClick={clearCart} className="flex mx-2  text-white  bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm">
+          <button
+            onClick={clearCart}
+            className="flex mx-2  text-white  bg-purple-500 border-0 py-2 px-2 focus:outline-none hover:bg-purple-600 rounded text-sm"
+          >
             <MdDeleteSweep className="m-1" />
             ClearCart
           </button>
