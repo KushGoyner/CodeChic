@@ -34,16 +34,16 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
       <div className="nav">
         <ul className="flex items-center space-x-4 font-bold md:text-md">
           <Link href={"/tshits"}>
-            <li>Tshirts</li>
+            <li className="hover:text-purple-800">Tshirts</li>
           </Link>
           <Link href={"/hoodies"}>
-            <li>hoodies</li>
+            <li className="hover:text-purple-800">hoodies</li>
           </Link>
           <Link href={"/mugs"}>
-            <li>Mugs</li>
+            <li className="hover:text-purple-800">Mugs</li>
           </Link>
           <Link href={"/stickers"}>
-            <li>Stickers</li>
+            <li className="hover:text-purple-800">Stickers</li>
           </Link>
         </ul>
       </div>
@@ -75,7 +75,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
             return (
               <li key={k}>
                 <div className="item flex my-5">
-                  <div className="w-2/3 font-semibold">{cart[k].name}</div>
+                  <div className="w-2/3 font-semibold">{cart[k].name} ({cart[k].size} /{cart[k].variant})</div>
 
                   <div className="flex font-semibold items-center justify-center w-1/3 text-lg">
                     <FaCircleMinus
@@ -86,7 +86,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                           cart[k].price,
                           cart[k].name,
                           cart[k].size,
-                          cart[k].varient
+                          cart[k].variant
                         );
                       }}
                       className="cursor-pointer"
@@ -101,7 +101,7 @@ const Navbar = ({ cart, addToCart, removeFromCart, clearCart, subTotal }) => {
                           cart[k].price,
                           cart[k].name,
                           cart[k].size,
-                          cart[k].varient
+                          cart[k].variant
                         );
                       }}
                       className="cursor-pointer"
