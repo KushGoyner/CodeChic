@@ -1,30 +1,47 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { useState } from 'react';
-const Slug = ({addToCart}) => {
-    const router =useRouter();
-    const {slug} = router.query;
-    const [pin, setPin] = useState('');
-    const [service, setService] = useState(null)
-    const checkServiceAvability = async ()=>{
-      let pins = await fetch('http://localhost:3000/api/pincode');
-      let pinJson = await pins.json();
-      if(pinJson.includes(parseInt(pin))){
-        setService(true);
+import Product from '@/models/Product';
+import mongoose from "mongoose";
+
+const Slug = ({addToCart,product,varients }) => {
+
+  
+  const router =useRouter();
+  const {slug} = router.query;
+  const [pin, setPin] = useState('');
+  const [service, setService] = useState(null)
+  const checkServiceAvability = async ()=>{
+    let pins = await fetch('http://localhost:3000/api/pincode');
+    let pinJson = await pins.json();
+    if(pinJson.includes(parseInt(pin))){
+      setService(true);
       }
       else{
         setService(false);
       }
     }
-
     const onChangePin = (e)=>{
       setPin(e.target.value);
     }
+    const [color,setColor] = useState(product.color);
+    
+    const [size,setSize] = useState(product.size);
+
+
+    const refreshVarients = (newSize,newColor) =>{
+
+      let url = `http://localhost:3000/product/${varients[newColor][newSize]['slug']}`
+      window.location = url;
+    }
+    
+    
+
   return (
     <section className="text-gray-600 body-font overflow-hidden">
   <div className="container px-5 py-16 mx-auto">
     <div className="lg:w-4/5 mx-auto flex flex-wrap">
-      <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-center rounded" src="../tshirt1.webp"/>
+      <img alt="ecommerce" className="lg:w-1/2 w-full lg:h-auto px-24 object-cover object-center rounded" src="../tshirt5.webp"/>
       <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
         <h2 className="text-sm title-font text-gray-500 tracking-widest">BRAND NAME</h2>
         <h1 className="text-gray-900 text-3xl title-font font-medium mb-1">The Catcher in the Rye</h1>
@@ -68,19 +85,24 @@ const Slug = ({addToCart}) => {
         <p className="leading-relaxed">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam indxgo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean shorts keytar banjo tattooed umami cardigan.</p>
         <div className="flex mt-6 items-center pb-5 border-b-2 border-gray-100 mb-5">
           <div className="flex">
-            <span className="mr-3">Color</span>
-            <button className="border-2 border-gray-300 rounded-full w-6 h-6 focus:outline-none"></button>
-            <button className="border-2 border-gray-300 ml-1 bg-gray-700 rounded-full w-6 h-6 focus:outline-none"></button>
-            <button className="border-2 border-gray-300 ml-1 bg-purple-500 rounded-full w-6 h-6 focus:outline-none"></button>
+            <span className="mr-3">Color :</span>
+            {Object.keys(varients).includes('white')&&<button onClick={()=>refreshVarients(size,'white')}  className={`border-2 ${(color==='white')?'border-black':'border-gray-300'} ml-1 rounded-full w-6 h-6 focus:outline-none`}></button>}
+            {Object.keys(varients).includes('red')&&<button onClick={()=>refreshVarients(size,'red')} className={`border-2 ${(color==='red')?'border-black':'border-gray-300'} ml-1 bg-red-700 rounded-full w-6 h-6 focus:outline-none`}></button>}
+            {Object.keys(varients).includes('blue')&&<button onClick={()=>refreshVarients(size,'blue')} className={`border-2 ${(color==='blue')?'border-black':'border-gray-300'} ml-1 bg-green-700 rounded-full w-6 h-6 focus:outline-none`}></button>}
+            {Object.keys(varients).includes('purple')&&<button onClick={()=>refreshVarients(size,'purple')} className={`border-2 ${(color==='purple')?'border-black':'border-gray-300'} ml-1 bg-purple-700 rounded-full w-6 h-6 focus:outline-none`}></button>}
+            {Object.keys(varients).includes('yellow')&&<button onClick={()=>refreshVarients(size,'yellow')} className={`border-2 ${(color==='yellow')?'border-black':'border-gray-300'} ml-1 bg-yellow-700 rounded-full w-6 h-6 focus:outline-none`}></button>}
+            {Object.keys(varients).includes('pink')&&<button onClick={()=>refreshVarients(size,'pink')} className={`border-2 ${(color==='pink')?'border-black':'border-'} ml-1 bg-pink-500 rounded-full w-6 h-6 focus:outline-none`}></button>}
+
           </div>
           <div className="flex ml-6 items-center">
             <span className="mr-3">Size</span>
             <div className="relative">
-              <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-purple-500 text-base pl-3 pr-10">
-                <option>SM</option>
-                <option>M</option>
-                <option>L</option>
-                <option>XL</option>
+              <select value={size} onChange={(e)=>{refreshVarients(e.target.value,color)}} className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-purple-200 focus:border-purple-500 text-base pl-3 pr-10">
+                {Object.keys(varients[color]).includes('S')&&<option value={'S'}>S</option>}
+                {Object.keys(varients[color]).includes('M')&&<option value={'M'}>M</option>}
+                {Object.keys(varients[color]).includes('L')&&<option value={'L'}>L</option>}
+                {Object.keys(varients[color]).includes('XL')&&<option value={'XL'}>XL</option>}
+                {Object.keys(varients[color]).includes('XXL')&&<option value={'XXL'}>XXL</option>}
               </select>
               <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
                 <svg fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" className="w-4 h-4" viewBox="0 0 24 24">
@@ -118,6 +140,32 @@ const Slug = ({addToCart}) => {
   </div>
 </section>
   )
+}
+
+export async function getServerSideProps(context) {
+  if (!mongoose.connections[0].readyState) {
+    await mongoose.connect(process.env.MONGO_URI);
+  }
+
+  let product = await Product.findOne({slug: context.query.slug});
+  let varients = await Product.find({title: product.title})
+
+  let colorSizeSlug = {};
+
+  for(let item of varients){
+    if(Object.keys(colorSizeSlug).includes(item.color)){
+      colorSizeSlug[item.color][item.size] = {slug:item.slug}
+    }
+    else{
+      colorSizeSlug[item.color] = {}
+      colorSizeSlug[item.color][item.size] = {slug:item.slug}
+    }
+  }
+  return {
+    props: { varients: JSON.parse(JSON.stringify(colorSizeSlug)),
+      product: JSON.parse(JSON.stringify(product))
+     },
+  };
 }
 
 export default Slug
