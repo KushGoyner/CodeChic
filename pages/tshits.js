@@ -23,7 +23,7 @@ const Tshirts = ({ products }) => {
                     <img
                       alt="ecommerce"
                       className="m-auto h-[30vh] md:h-[46vh] block"
-                      src={`./${products[item].img}.webp`}
+                      src={`./${products[item].img}`}
                     />
 
                     <div className="mt-4">
