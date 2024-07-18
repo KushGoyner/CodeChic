@@ -1,9 +1,64 @@
-import React from "react";
+import {React,useState} from "react";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { ToastContainer, toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const Login = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const handleSubmit = async (e)=>{
+    e.preventDefault();
+
+    try {
+      const formbody = {email,password};
+      let response = await fetch("http://localhost:3000/api/login",{
+        method:"POST",
+        headers:{
+          'Content-Type':'application/json',
+        },
+        body: JSON.stringify(formbody),
+      })
+
+      let data = await response.json();
+
+      setEmail("");
+      setPassword("");
+      if(data.success){
+        toast("😀 Signin Successfull!")
+        setTimeout(() => {
+          router.push('http://localhost:3000')
+          
+        }, 3000);
+
+
+      }else{
+        toast("😥 Signin Failed! Please Enter Correct Credential")
+      }
+      
+    } catch (error) {
+      console.log(error)
+      
+    }
+    
+
+  }
+
+  const handleChange = (e)=>{
+    if(e.target.name == "email"){
+      setEmail(e.target.value)
+    }
+    if(e.target.name == "password"){
+      setPassword(e.target.value)
+    }
+  }
+
+
   return (
     <section class="bg-gray-50 dark:bg-gray-900">
+      <ToastContainer/>
       <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
         
         <Link
@@ -18,7 +73,7 @@ const Login = () => {
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Sign in to your account
             </h1>
-            <form class="space-y-4 md:space-y-6" action="#">
+            <form onSubmit={handleSubmit} class="space-y-4 md:space-y-6" method="POST">
               <div>
                 <label
                   for="email"
@@ -27,6 +82,8 @@ const Login = () => {
                   Your email
                 </label>
                 <input
+                value={email}
+                onChange={handleChange}
                   type="email"
                   name="email"
                   id="email"
@@ -43,6 +100,8 @@ const Login = () => {
                   Password
                 </label>
                 <input
+                value={password}
+                onChange={handleChange}
                   type="password"
                   name="password"
                   id="password"

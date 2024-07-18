@@ -19,7 +19,7 @@ const Signup = () => {
         headers:{
           'Content-Type':'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(formbody),
       })
 
       let data = await response.json();
@@ -28,10 +28,10 @@ const Signup = () => {
       setEmail("");
       setName("");
       setPassword("");
-      toast("😀 SignUp Failed!")
+      toast("😀 SignUp Successfull!")
       
     } catch (error) {
-      console.log("hehe")
+      console.log(error)
       toast("😥 SignUp Failed!")
     }
     
@@ -65,7 +65,7 @@ const Signup = () => {
             <h1 className="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
               Create an account
             </h1>
-            <form onClick={handleSubmit} method="POST" className="space-y-4 md:space-y-6">
+            <form onSubmit={handleSubmit} method="POST" className="space-y-4 md:space-y-6">
             <div>
                 <label
                   htmlFor="name"
@@ -74,7 +74,7 @@ const Signup = () => {
                   Your Name
                 </label> 
                 <input 
-                  value={name}
+                value={name}
                   onChange={handleChange}
                   type="text"
                   name="name"
@@ -92,8 +92,8 @@ const Signup = () => {
                   Your email
                 </label>
                 <input 
-                  value={email} 
                   onChange={handleChange}
+                  value={email}
                   type="email"
                   name="email"
                   id="email"
@@ -110,8 +110,8 @@ const Signup = () => {
                   Password
                 </label>
                 <input 
-                  value={password} 
                   onChange={handleChange}
+                  value={password}
                   type="password"
                   name="password"
                   id="password"
@@ -154,12 +154,12 @@ const Signup = () => {
               </button>
               <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                 Already have an account?{" "}
-                <a
-                  href="#"
+                <Link
+                  href={'/login'}
                   className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                 >
                   Login here
-                </a>
+                </Link>
               </p>
             </form>
           </div>
