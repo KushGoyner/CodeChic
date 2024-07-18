@@ -7,7 +7,7 @@ const handler = async (req, res) => {
   if (req.method === "POST") {
 
     let user = await User.findOne({email:req.body.email})
-    let bytes  = CryptoJS.AES.decrypt(user.password, 'KUSHISKING');
+    let bytes  = CryptoJS.AES.decrypt(user.password,'KUSHISKING');
     let originalPassword = bytes.toString(CryptoJS.enc.Utf8);
 
 
@@ -15,8 +15,10 @@ const handler = async (req, res) => {
         if(user){
             if(req.body.email === user.email && req.body.password === originalPassword){
 
-              var token = jwt.sign({ foo: 'bar' }, 'shhhhh');
-                res.status(200).json({success: true,email : user.email,name: user.name});
+              var token = jwt.sign({email:user.email,name:user.name},'KUSHISKING',{
+                expiresIn:"2d"
+              });
+              res.status(200).json({success:true,token});
             }
             else{
                 res.status(500).json({success:false,error:"Invalid Crenditials"});
