@@ -17,7 +17,7 @@ const Slug = ({addToCart,product,varients ,buyNow}) => {
   const [service, setService] = useState(null)
   const checkServiceAvability = async ()=>{
     
-    let pins = await fetch('http://localhost:3000/api/pincode');
+    let pins = await fetch(`${process.env.HOST}/api/pincode`);
     let pinJson = await pins.json();
     if(pinJson.includes(parseInt(pin))){
       setService(true);
@@ -39,12 +39,12 @@ const Slug = ({addToCart,product,varients ,buyNow}) => {
     const refreshVarients = (newSize,newColor) =>{
 
       try {
-        let url = `http://localhost:3000/product/${varients[newColor][newSize]['slug']}`
+        let url = `${process.env.HOST}/product/${varients[newColor][newSize]['slug']}`
         window.location = url;
         router.push('/checkout')
         
       } catch (error) {
-        let url = `http://localhost:3000/product/${varients[product.color][product.size]['slug']}`
+        let url = `${process.env.HOST}/${varients[product.color][product.size]['slug']}`
         window.location = url;
         router.push('/checkout')
       }

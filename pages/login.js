@@ -13,7 +13,7 @@ const Login = () => {
 
     try {
       const formbody = { email, password };
-      let response = await fetch("http://localhost:3000/api/login", {
+      let response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/login`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +29,7 @@ const Login = () => {
         localStorage.setItem("token", data.token);
         toast("😀 Signin Successfull!");
         setTimeout(() => {
-          router.push("http://localhost:3000");
+          router.push(`${process.env.HOST}`);
         }, 1000);
       } else {
         toast("😥 Signin Failed! Please Enter Correct Credential");

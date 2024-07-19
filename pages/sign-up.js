@@ -23,7 +23,7 @@ const Signup = () => {
 
     try {
       const formbody = {name,email,password};
-      let response = await fetch("http://localhost:3000/api/signup",{
+      let response = await fetch(`${process.env.HOST}/api/signup`,{
         method:"POST",
         headers:{
           'Content-Type':'application/json',

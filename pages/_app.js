@@ -20,6 +20,7 @@ export default function App({ Component, pageProps }) {
     localStorage.clear();
     setUser({ value: null });
     setKey(Math.random());
+    router.push('/')
   };
   
   useEffect(() => {
